@@ -1,8 +1,13 @@
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 import awkward
 import numpy
 import xgboost
+
+
+def load_diphoton_mva(
+):
+    pass
 
 
 def calculate_diphoton_mva(
