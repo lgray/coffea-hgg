@@ -27,10 +27,11 @@ def load_bdt(fname: str) -> Optional[xgboost.Booster]:
             magic = f.read(2)
             opener = _magics.get(magic, lambda x: x)
         bdt.load_model(opener(fname))
+        # bdt.set_param({"predictor": "gpu_predictor"})
     except xgboost.core.XGBoostError as xgberr:
         warnings.warn(repr(xgberr))
         bdt = None
     except FileNotFoundError as fnferr:
-        warnings.warn(repr(fnferr))
+        warnings.warn(repr(fnferr) + " " + fname)
         bdt = None
     return bdt

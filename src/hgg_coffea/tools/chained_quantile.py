@@ -58,64 +58,48 @@ class wrapped_triton:
         self._model = model
         self._version = version
 
-        print(model_url)
-        print(protocol, location, address)
-        print(self._model)
-        print(self._version)
-        
         self._scale = scale
         self._center = center
         self._variables = variables
 
     def __call__(self, array: numpy.ndarray) -> numpy.ndarray:
-        print(array.shape)
         if self._protocol == "grpc":
-            client = triton_grpc.InferenceServerClient(
-                url = self._address,
-                verbose = False
-            )
+            client = triton_grpc.InferenceServerClient(url=self._address, verbose=False)
         elif self._protocol == "http":
             client = triton_http.InferenceServerClient(
-                url = self._address,
-                verbose = False,
-                concurrency = 12,
+                url=self._address,
+                verbose=False,
+                concurrency=12,
             )
         else:
-            raise ValueError(f"{self._protocol} does not encode a valid protocol (grpc or http)")
+            raise ValueError(
+                f"{self._protocol} does not encode a valid protocol (grpc or http)"
+            )
 
-        
         if isinstance(client, triton_grpc.InferenceServerClient):
             triton_input = triton_grpc.InferInput(
-                'input__0',
-                (array.shape[0], array.shape[1]),
-                'FP32'
+                "input__0", (array.shape[0], array.shape[1]), "FP32"
             )
             triton_input.set_data_from_numpy(array)
-            triton_output = triton_grpc.InferRequestedOutput('output__0')
-        else: # it is assured to be http
+            triton_output = triton_grpc.InferRequestedOutput("output__0")
+        else:  # it is assured to be http
             triton_input = triton_http.InferInput(
-                'input__0',
-                (array.shape[0], array.shape[1]),
-                'FP32'
-            )            
+                "input__0", (array.shape[0], array.shape[1]), "FP32"
+            )
             triton_input.set_data_from_numpy(array, binary_data=True)
             triton_output = triton_http.InferRequestedOutput(
-                'output__0',
-                binary_data=True
+                "output__0", binary_data=True
             )
 
         request = client.infer(
             self._model,
             model_version=self._version,
             inputs=[triton_input],
-            outputs=[triton_output]
+            outputs=[triton_output],
         )
 
-        out = request.as_numpy('output__0')
+        out = request.as_numpy("output__0")
 
-        print(self._model)
-        print(out)
-        
         return out * (self._scale or 1.0) + (self._center or 0.0)
 
     @property
@@ -130,7 +114,7 @@ class wrapped_triton:
     def variables(self) -> Optional[List[str]]:
         return self._variables
 
-    
+
 def create_evaluator(
     weights: str,
     scale: Optional[float] = None,
@@ -139,7 +123,9 @@ def create_evaluator(
     **kwargs: Dict[Any, Any],
 ) -> xgboost.Booster:
     if weights.startswith("triton+"):
-        return wrapped_triton(model_url=weights, scale=scale, center=center, variables=variables)
+        return wrapped_triton(
+            model_url=weights, scale=scale, center=center, variables=variables
+        )
     else:
         model = load_bdt(weights)
         if model is None:
@@ -297,7 +283,9 @@ class ChainedQuantileRegression:
         p_peak_data = 1 - p_tail_data
         p_peak_mc = 1 - p_tail_mc
 
-        migration = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(numpy.float32)
+        migration = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(
+            numpy.float32
+        )
         pfPhoIso = awkward.to_numpy(photons.pfPhoIso03)
 
         p_move_to_tail = (p_tail_data - p_tail_mc) / p_peak_mc
@@ -321,7 +309,9 @@ class ChainedQuantileRegression:
         )
         # https://github.com/cms-analysis/flashgg/blob/dev_legacy_runII/Taggers/plugins/DifferentialPhoIdInputsCorrector.cc#L301
         p2t_stack_vars.append(
-            numpy.random.uniform(low=0.01, high=0.99, size=clf_eval_vars.shape[0]).astype(numpy.float32)
+            numpy.random.uniform(
+                low=0.01, high=0.99, size=clf_eval_vars.shape[0]
+            ).astype(numpy.float32)
         )
         p2t_stack_vars.extend(
             [awkward.to_numpy(photons[name]) for name in p2t_vars[irnd + 1 :]]
@@ -405,8 +395,12 @@ class ChainedQuantileRegression:
         probs_mc[isEB] = clf_mc["EB"](clf_eval_vars[isEB])
         probs_mc[isEE] = clf_mc["EE"](clf_eval_vars[isEE])
 
-        migration = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(numpy.float32)
-        migration_subcat = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(numpy.float32)
+        migration = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(
+            numpy.float32
+        )
+        migration_subcat = numpy.random.uniform(size=clf_eval_vars.shape[0]).astype(
+            numpy.float32
+        )
         pfChgIso = awkward.to_numpy(photons.pfChargedIsoPFPV)
         pfChgIsoWorst = awkward.to_numpy(photons.pfChargedIsoWorstVtx)
 
@@ -443,7 +437,9 @@ class ChainedQuantileRegression:
         )
         # https://github.com/cms-analysis/flashgg/blob/dev_legacy_runII/Taggers/plugins/DifferentialPhoIdInputsCorrector.cc#L301
         p2t_stack_vars.append(
-            numpy.random.uniform(low=0.01, high=0.99, size=clf_eval_vars.shape[0]).astype(numpy.float32)
+            numpy.random.uniform(
+                low=0.01, high=0.99, size=clf_eval_vars.shape[0]
+            ).astype(numpy.float32)
         )
         p2t_stack_vars.extend(
             [awkward.to_numpy(photons[name]) for name in p2t_vars[irnd + 1 :]]
@@ -464,7 +460,9 @@ class ChainedQuantileRegression:
         )
         # https://github.com/cms-analysis/flashgg/blob/dev_legacy_runII/Taggers/plugins/DifferentialPhoIdInputsCorrector.cc#L301
         p2t_worst_stack_vars.append(
-            numpy.random.uniform(low=0.01, high=0.99, size=clf_eval_vars.shape[0]).astype(numpy.float32)
+            numpy.random.uniform(
+                low=0.01, high=0.99, size=clf_eval_vars.shape[0]
+            ).astype(numpy.float32)
         )
         p2t_worst_stack_vars.extend(
             [
