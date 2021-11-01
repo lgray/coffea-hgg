@@ -10,11 +10,11 @@
       "f3 := fixedGridRhoAll", 
       "f4 := peak2tail_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EE_probePhoIso/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EE_probePhoIso/1"
     }, 
     "peak_tail_clfs": {
-     "weights_data": "triton+grpc://ailab02.fnal.gov:8001/data_clf_p0t_EE_probePhoIso/1", 
-     "weights_mc": "triton+grpc://ailab02.fnal.gov:8001/mc_clf_p0t_EE_probePhoIso/1", 
+     "weights_data": "triton+grpc://triton:8001/data_clf_p0t_EE_probePhoIso/1", 
+     "weights_mc": "triton+grpc://triton:8001/mc_clf_p0t_EE_probePhoIso/1", 
      "variables": [
       "f0 := pt", 
       "f1 := eta", 
@@ -31,7 +31,7 @@
       "f4 := pfPhoIso03"
      ], 
      "scale": 0.03659398460457955, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probePhoIso/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probePhoIso/1", 
      "center": -0.005993524078167001
     }
    }, 
@@ -44,11 +44,11 @@
       "f3 := fixedGridRhoAll", 
       "f4 := peak2tail_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EB_probePhoIso/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EB_probePhoIso/1"
     }, 
     "peak_tail_clfs": {
-     "weights_data": "triton+grpc://ailab02.fnal.gov:8001/data_clf_p0t_EB_probePhoIso/1", 
-     "weights_mc": "triton+grpc://ailab02.fnal.gov:8001/mc_clf_p0t_EB_probePhoIso/1", 
+     "weights_data": "triton+grpc://triton:8001/data_clf_p0t_EB_probePhoIso/1", 
+     "weights_mc": "triton+grpc://triton:8001/mc_clf_p0t_EB_probePhoIso/1", 
      "variables": [
       "f0 := pt", 
       "f1 := eta", 
@@ -65,7 +65,7 @@
       "f4 := pfPhoIso03"
      ], 
      "scale": 0.08328429357760053, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probePhoIso/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probePhoIso/1", 
      "center": 0.04449992030025607
     }
    }
@@ -81,11 +81,11 @@
       "f4 := pfChargedIsoWorstVtx", 
       "f5 := peak2tail_chIso_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EE_probeChIso03/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EE_probeChIso03/1"
     }, 
     "peak_tail_clfs": {
-     "weights_data": "triton+grpc://ailab02.fnal.gov:8001/data_clf_3Cat_EE_probeChIso03_probeChIso03worst/1", 
-     "weights_mc": "triton+grpc://ailab02.fnal.gov:8001/mc_clf_3Cat_EE_probeChIso03_probeChIso03worst/1", 
+     "weights_data": "triton+grpc://triton:8001/data_clf_3Cat_EE_probeChIso03_probeChIso03worst/1", 
+     "weights_mc": "triton+grpc://triton:8001/mc_clf_3Cat_EE_probeChIso03_probeChIso03worst/1", 
      "variables": [
       "f0 := pt", 
       "f1 := eta", 
@@ -102,7 +102,7 @@
       "f4 := pfChargedIsoPFPV", 
       "f5 := peak2tail_chIsoWorst_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EE_probeChIso03worst/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EE_probeChIso03worst/1"
     }, 
     "chIsoWorst_morphing": {
      "variables": [
@@ -114,7 +114,7 @@
       "f5 := pfChargedIsoWorstVtx"
      ], 
      "scale": 0.06937509297950828, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeChIso03worst/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeChIso03worst/1", 
      "center": -0.012102991445168576
     }, 
     "chIso_morphing": {
@@ -127,7 +127,7 @@
       "f5 := pfChargedIsoWorstVtx"
      ], 
      "scale": 0.053902877744458275, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeChIso03/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeChIso03/1", 
      "center": 0.005629398768536298
     }
    }, 
@@ -141,11 +141,11 @@
       "f4 := pfChargedIsoWorstVtx", 
       "f5 := peak2tail_chIso_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EB_probeChIso03/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EB_probeChIso03/1"
     }, 
     "peak_tail_clfs": {
-     "weights_data": "triton+grpc://ailab02.fnal.gov:8001/data_clf_3Cat_EB_probeChIso03_probeChIso03worst/1", 
-     "weights_mc": "triton+grpc://ailab02.fnal.gov:8001/mc_clf_3Cat_EB_probeChIso03_probeChIso03worst/1", 
+     "weights_data": "triton+grpc://triton:8001/data_clf_3Cat_EB_probeChIso03_probeChIso03worst/1", 
+     "weights_mc": "triton+grpc://triton:8001/mc_clf_3Cat_EB_probeChIso03_probeChIso03worst/1", 
      "variables": [
       "f0 := pt", 
       "f1 := eta", 
@@ -162,7 +162,7 @@
       "f4 := pfChargedIsoPFPV", 
       "f5 := peak2tail_chIsoWorst_rnd"
      ], 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalTailRegressor_EB_probeChIso03worst/1"
+     "weights": "triton+grpc://triton:8001/weights_finalTailRegressor_EB_probeChIso03worst/1"
     }, 
     "chIsoWorst_morphing": {
      "variables": [
@@ -174,7 +174,7 @@
       "f5 := pfChargedIsoWorstVtx"
      ], 
      "scale": 0.07698244070093274, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeChIso03worst/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeChIso03worst/1", 
      "center": 0.08875002442737878
     }, 
     "chIso_morphing": {
@@ -187,7 +187,7 @@
       "f5 := pfChargedIsoWorstVtx"
      ], 
      "scale": 0.07033647601213677, 
-     "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeChIso03/1", 
+     "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeChIso03/1", 
      "center": 0.03309216961513517
     }
    }
@@ -197,72 +197,72 @@
   "sieie": {
    "EE": {
     "scale": 0.0004274773880549934, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeSigmaIeIe/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeSigmaIeIe/1", 
     "center": 0.00022834476687329242
    }, 
    "EB": {
     "scale": 9.16444903149064e-05, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeSigmaIeIe/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeSigmaIeIe/1", 
     "center": -1.7937031871344093e-05
    }
   }, 
   "etaWidth": {
    "EE": {
     "scale": 0.0004501920716418325, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeEtaWidth/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeEtaWidth/1", 
     "center": 0.00026279990833288913
    }, 
    "EB": {
     "scale": 0.0002980484981690405, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeEtaWidth/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeEtaWidth/1", 
     "center": -6.979588719400326e-06
    }
   }, 
   "r9": {
    "EE": {
     "scale": 0.01370282259444966, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeR9/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeR9/1", 
     "center": -0.007243889920611868
    }, 
    "EB": {
     "scale": 0.008903793308924074, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeR9/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeR9/1", 
     "center": -0.0031396514172706835
    }
   }, 
   "phiWidth": {
    "EE": {
     "scale": 0.0020769732429961885, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probePhiWidth/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probePhiWidth/1", 
     "center": 0.0012185156608152982
    }, 
    "EB": {
     "scale": 0.0015185118270562956, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probePhiWidth/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probePhiWidth/1", 
     "center": 0.0004858939940410737
    }
   }, 
   "sieip": {
    "EE": {
     "scale": 1.8787174515417313e-05, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeCovarianceIeIp/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeCovarianceIeIp/1", 
     "center": -9.748050865400002e-06
    }, 
    "EB": {
     "scale": 1.0568535179511535e-06, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeCovarianceIeIp/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeCovarianceIeIp/1", 
     "center": -2.7280449875290024e-08
    }
   }, 
   "s4": {
    "EE": {
     "scale": 0.014026992905521729, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EE_probeS4/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EE_probeS4/1", 
     "center": -0.009796456994442537
    }, 
    "EB": {
     "scale": 0.006373763449430178, 
-    "weights": "triton+grpc://ailab02.fnal.gov:8001/weights_finalRegressor_EB_probeS4/1", 
+    "weights": "triton+grpc://triton:8001/weights_finalRegressor_EB_probeS4/1", 
     "center": -0.002431847699673806
    }
   }
