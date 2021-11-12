@@ -371,7 +371,7 @@ class HggBaseProcessor(processor.ProcessorABC):  # type: ignore
             )
             subdirs = []
             if "dataset" in events.metadata:
-                subdirs.append(events.metadata["dataset"])
+                subdirs.append(f'dataset={events.metadata["dataset"]}')
             self.dump_pandas(df, fname, self.output_location, subdirs)
 
         return histos_etc
