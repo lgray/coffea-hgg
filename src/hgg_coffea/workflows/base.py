@@ -50,6 +50,21 @@ class HggBaseProcessor(processor.ProcessorABC):  # type: ignore
         self.max_chad_iso = 20.0
         self.max_chad_rel_iso = 0.3
 
+        self.min_full5x5_r9_EB_high_r9 = 0.85
+        self.min_full5x5_r9_EE_high_r9 = 0.9
+        self.min_full5x5_r9_EB_low_r9 = 0.5
+        self.min_full5x5_r9_EE_low_r9 = 0.8
+        self.max_trkSumPtHollowConeDR03_EB_low_r9 = 6.0
+        self.max_trkSumPtHollowConeDR03_EE_low_r9 = 6.0
+        self.max_sieie_EB_low_r9 = 0.015
+        self.max_sieie_EE_low_r9 = 0.035
+        self.max_pho_iso_EB_low_r9 = 4.0
+        self.max_pho_iso_EE_low_r9 = 4.0
+
+        self.eta_rho_corr = 1.5
+        self.low_eta_rho_corr = 0.16544
+        self.high_eta_rho_corr = 0.13212
+
         self.taggers = []
         if taggers is not None:
             self.taggers = taggers
@@ -77,8 +92,70 @@ class HggBaseProcessor(processor.ProcessorABC):  # type: ignore
         # initialize diphoton mva
         self.diphoton_mva = load_bdt(self.meta["flashggDiPhotonMVA"]["weightFile"])
 
-    def photon_preselection(self, photons: awkward.Array) -> awkward.Array:
+    def photon_preselection(
+        self, photons: awkward.Array, events: awkward.Array
+    ) -> awkward.Array:
+        # hlt-mimicking cuts
+        rho = events.fixedGridRhoAll * awkward.ones_like(photons.pt)
         photon_abs_eta = numpy.abs(photons.eta)
+        isEB_high_r9 = (photon_abs_eta < self.gap_barrel_eta) & (
+            photons.r9 > self.min_full5x5_r9_EB_high_r9
+        )
+        isEE_high_r9 = (photon_abs_eta > self.gap_endcap_eta) & (
+            photons.r9 > self.min_full5x5_r9_EE_high_r9
+        )
+        isEB_low_r9 = (
+            (photon_abs_eta < self.gap_barrel_eta)
+            & (photons.r9 > self.min_full5x5_r9_EB_low_r9)
+            & (photons.r9 < self.min_full5x5_r9_EB_high_r9)
+            & (
+                photons.trkSumPtHollowConeDR03
+                < self.max_trkSumPtHollowConeDR03_EB_low_r9
+            )
+            & (photons.sieie < self.max_sieie_EB_low_r9)
+            & (
+                (
+                    (photon_abs_eta < self.eta_rho_corr)
+                    & (
+                        photons.pfPhoIso03 - rho * self.low_eta_rho_corr
+                        < self.max_pho_iso_EB_low_r9
+                    )
+                )
+                | (
+                    (photon_abs_eta > self.eta_rho_corr)
+                    & (
+                        photons.pfPhoIso03 - rho * self.high_eta_rho_corr
+                        < self.max_pho_iso_EB_low_r9
+                    )
+                )
+            )
+        )
+        isEE_low_r9 = (
+            (photon_abs_eta < self.gap_barrel_eta)
+            & (photons.r9 > self.min_full5x5_r9_EB_low_r9)
+            & (photons.r9 < self.min_full5x5_r9_EB_high_r9)
+            & (
+                photons.trkSumPtHollowConeDR03
+                < self.max_trkSumPtHollowConeDR03_EB_low_r9
+            )
+            & (photons.sieie < self.max_sieie_EB_low_r9)
+            & (
+                (
+                    (photon_abs_eta < self.eta_rho_corr)
+                    & (
+                        photons.pfPhoIso03 - rho * self.low_eta_rho_corr
+                        < self.max_pho_iso_EB_low_r9
+                    )
+                )
+                | (
+                    (photon_abs_eta > self.eta_rho_corr)
+                    & (
+                        photons.pfPhoIso03 - rho * self.high_eta_rho_corr
+                        < self.max_pho_iso_EB_low_r9
+                    )
+                )
+            )
+        )
         return photons[
             (photons.pt > self.min_pt_photon)
             & (photon_abs_eta < self.max_sc_eta)
@@ -93,6 +170,7 @@ class HggBaseProcessor(processor.ProcessorABC):  # type: ignore
                 | (photons.pfRelIso03_chg < self.max_chad_iso)
                 | (photons.pfRelIso03_chg / photons.pt < self.max_chad_rel_iso)
             )
+            & (isEB_high_r9 | isEB_low_r9 | isEE_high_r9 | isEE_low_r9)
         ]
 
     def diphoton_list_to_pandas(self, diphotons: awkward.Array) -> pandas.DataFrame:
@@ -199,7 +277,7 @@ class HggBaseProcessor(processor.ProcessorABC):  # type: ignore
         photons = self.add_photonid_mva(photons, events)
 
         # photon preselection
-        photons = self.photon_preselection(photons)
+        photons = self.photon_preselection(photons, events)
         # sort photons in each event descending in pt
         # make descending-pt combinations of photons
         photons = photons[awkward.argsort(photons.pt, ascending=False)]
