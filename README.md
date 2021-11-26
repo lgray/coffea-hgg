@@ -53,7 +53,7 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # Run and follow instructions on screen
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
-NOTE: always make sure that conda, python, and pip point to local Miniconda installation (`which conda` etc.).
+NOTE: always make sure that conda, python, and pip point to local Miniconda installation (`which conda` etc.). You may have to first run `source /path/to/my/miniconda3/etc/profile.d/conda.sh` to have the `conda` command available. 
 
 You can either use the default environment`base` or create a new one:
 ```bash
