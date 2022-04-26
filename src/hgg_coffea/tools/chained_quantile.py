@@ -65,6 +65,8 @@ class wrapped_triton:
     def __call__(self, array: numpy.ndarray) -> numpy.ndarray:
         if self._protocol == "grpc":
             client = triton_grpc.InferenceServerClient(url=self._address, verbose=False)
+        elif self._protocol == "grpcs":
+            client = triton_grpc.InferenceServerClient(url=self._address, verbose=False, ssl=True)
         elif self._protocol == "http":
             client = triton_http.InferenceServerClient(
                 url=self._address,
