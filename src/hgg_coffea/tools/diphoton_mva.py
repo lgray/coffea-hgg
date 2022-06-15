@@ -62,7 +62,7 @@ def calculate_diphoton_mva(
     add_reso = (
         0.5
         * (-numpy.sqrt(2.0) * events.BeamSpot.sigmaZ / denominator)
-        * (numerator_lead / p_lead.mag + numerator_sublead / p_sublead.mag)
+        * (numerator_lead / v_lead.mag + numerator_sublead / v_sublead.mag)
     )
 
     dEnorm_lead = diphotons.pho_lead.energyErr / diphotons.pho_lead.energy
